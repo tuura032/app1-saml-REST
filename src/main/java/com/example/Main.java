@@ -25,6 +25,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -53,10 +54,16 @@ public class Main {
     return "index";
   }
 
-  @RequestMapping("/hello")
-  String hello(Map<String, Object> model) {
-    model.put("message", "Welcome to my app!");
+  @RequestMapping("/hello/{message}")
+  String hello(Map<String, Object> model, @PathVariable String message) {
+    model.put("message", message);
     return "hello";
+  }
+
+  @RequestMapping("/updates")
+  String updates(Map<String, Object> model) {
+    model.put("username", "some new username will go here");
+    return "updates";
   }
 
   @RequestMapping("/db")
